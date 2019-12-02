@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<div class="pageTitle">Cars
+    <br>
+    <!-- <img id="carClipArt" src="images/carclipart.png"> -->
+</div>
+<table class="formBox">
+    <td>
+        <div class="formTitle">Add car</div>
+        <form id="carForm" method="post" action="addCar">
+            <table>
+                <tr>
+                    <td>Name: </td>
+                    <td>
+                        <input type="text" name="name" required="required" autofocus value="Name">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Consumption: </td>
+                    <td>
+                        <input type="text" name="consumption" required="required" value="7/100km">
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Color: </td>
+                    <td>
+                        <input type="text" name="color" required="required" value="Black">
+                    </td>
+                </tr>
+
+
+                <!--manufacturerNames-->
+                <tr>
+                    <td>Manufacturer:</td>
+                    <td>
+                        <select name="manufacturer" required="required">
+                            <option value="Toyota">Toyota</option>
+                            <option value="KIA">KIA</option>
+                        </select>
+                    </td>
+                </tr>
+
+                <td>Available:</td>
+                <td>
+                    <input type="number" name="available" required="required" value="1">
+                </td>
+                </tr>
+
+                </tr>
+
+                <td>Year:</td>
+                <td>
+                    <input type="text" name="year" required="required" value="2000">
+                </td>
+                </tr>
+
+                </tr>
+
+                <td>Horsepower:</td>
+                <td>
+                    <input type="number" name="horsepower" required="required" value="100">
+                </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <input type="submit" name="insert" value="Add Car">
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </td>
+</table>
+
+
+
+
+<script>
+    $.getJSON("cars", function(data) {
+
+        var table = $('<table id="carsTable"></table>');
+        $(table).append('<tr><th>Name</th><th>Consumption</th><th>Color</th><th>Manufacturer</th><th>Available</th><th>Year</th><th>Horsepower</th></tr>');
+
+        $.each(data, function(key, value){
+            var row = $('<tr></tr>');
+            var nameCell = $('<td>' + value.name + '</td>');
+            var consumptionCell = $('<td>' + value.consumption + '</td>');
+            var colorCell = $('<td>' + value.color + '</td>');
+            var manufacturerCell = $('<td id="authorId" onclick="openCar(' +
+                "'" +
+                value.manufacturer +
+                "'" +
+                ')">' + value.manufacturer + '</td>');
+            var availableCell = $('<td>' + value.available + '</td>');
+            var yearCell = $('<td>' + value.year + '</td>');
+            var horsepowerCell = $('<td>' + value.horsepower + '</td>');
+
+            $(row).append(nameCell);
+            $(row).append(consumptionCell);
+            $(row).append(colorCell);
+            $(row).append(manufacturerCell);
+            $(row).append(availableCell);
+            $(row).append(yearCell);
+            $(row).append(horsepowerCell);
+            $(table).append(row);
+        })
+        $("#content").append(table);
+    })
+</script>
+
+</html>
+
+

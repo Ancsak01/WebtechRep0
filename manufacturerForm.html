@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div class="pageTitle">
+    Manufacturers
+    <br>
+    <!-- <img id="factory" src="images/factory.png"> -->
+</div>
+
+
+<table class="formBox">
+    <td>
+        <div class="formTitle">Add manufacturer</div>
+        <form id="manufacturersForm" method="post" action="addManufacturers">
+            <table>
+                <tr>
+                    <td>Name:</td>
+                    <td>
+                        <input type="text" name="name" autofocus required="required">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td>
+                        <input type="text" name="country" required="required">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Founded:</td>
+                    <td>
+                        <input type="date" name="founded" required="required">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="submit" name="insert" value="Add Manufacturer">
+                    </td>
+                </tr>
+
+            </table>
+        </form>
+    </td>
+</table>
+
+
+
+
+
+
+<script>
+    $.getJSON("manufacturers", function(data) {
+        var table = $('<table id="manufacturersTable"></table>');
+        $(table).append('<tr><th>Name</th><th>Country</th><th>Founded</th></tr>');
+
+        $.each(data, function(key, value){
+            var row = $('<tr></tr>');
+            var nameCell = $('<td id="authorId" onclick="openCar(' +
+                "'" +
+                value.name +
+                "'" +
+                ')">' + value.name + '</td>');
+            var countryCell = $('<td>' + value.country + '</td>');
+            var foundedCell = $('<td>' + value.founded + '</td>');
+            $(row).append(nameCell);
+            $(row).append(countryCell);
+            $(row).append(foundedCell);
+            $(table).append(row);
+        })
+        $("#content").append(table);
+    })
+</script>
+
+</html>
